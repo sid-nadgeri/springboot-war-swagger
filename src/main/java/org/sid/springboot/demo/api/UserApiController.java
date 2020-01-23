@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -62,6 +63,18 @@ public class UserApiController implements UserApi {
         } else {
             return new ResponseEntity<User>(HttpStatus.BAD_REQUEST);
         }
+    }
 
+    @Override
+    public ResponseEntity<Void> createUser(@Valid User body) {
+        userRepository.save(body);
+        return new ResponseEntity<Void>(HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<Void> deleteUser(String username) {
+        User byUsername = userRepository.findByUsername(username);
+        userRepository.delete(byUsername);
+        return new ResponseEntity<Void>(HttpStatus.OK);
     }
 }
