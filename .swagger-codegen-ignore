@@ -25,4 +25,5 @@
 pom.xml
 README.md
 **/UserApiController.java
+swagger-spring.iml
 
